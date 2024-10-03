@@ -37,7 +37,7 @@ public class BasicItemController {
     }
 
     @GetMapping("/{itemId}")
-    public String item(@PathVariable long itemId, Model model) {
+    public String item(@PathVariable Long itemId, Model model) {
 
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item", item);
@@ -112,6 +112,16 @@ public class BasicItemController {
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
         return "redirect:/basic/items/{itemId}";
+    }
+
+
+    @GetMapping("/{itemId}/edit")
+    public String editForm(@PathVariable Long itemId,
+                           Model model) {
+
+        Item item = itemRepository.findById(itemId);
+        model.addAttribute("item", item);
+        return "basic/editForm";
     }
 
     @PostMapping("/{itemId}/edit")
